@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reopen Shop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+/* background shapes */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+body::before {
+    top: -200px;
+    left: -200px;
+}
+
+body::after {
+    bottom: -200px;
+    right: -200px;
+}
+
+/* ================= HERO CONTAINER ================= */
+.container {
+    width: 90%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 28px;
+    padding: 60px 40px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ================= HEADING ================= */
+h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #FFD86B;
+}
+
+/* ================= LABELS & INPUTS ================= */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+}
+
+input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+input:focus {
+    outline: none;
+    border-color: #FFD86B;
+    box-shadow: 0 0 0 3px rgba(255,216,107,0.25);
+}
+
+/* ================= SUBMIT BUTTON ================= */
+input[type="submit"] {
+    width: 100%;
+    background: #FFD86B;
+    color: #4A56E2;
+    font-weight: 600;
+    padding: 14px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+/* ================= FLOAT ANIMATION ================= */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 480px) {
+    .container {
+        padding: 40px 25px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+
+<div class="container">
+    <h1>Reopen Shop</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <input type="submit" value="Reopen Shop">
+    </form>
+</div>
+
+</body>
+</html>

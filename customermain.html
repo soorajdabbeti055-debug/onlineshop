@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Main</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    color: #fff;
+}
+
+/* background circles */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    z-index: 0;
+}
+body::before { top: -200px; left: -200px; }
+body::after { bottom: -200px; right: -200px; }
+
+/* ================= HEADER ================= */
+h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFD86B;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* ================= TOP BUTTONS ================= */
+.top-links {
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+.top-links a {
+    display: inline-block;
+    padding: 12px 28px;
+    margin: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #4A56E2;
+    background: #FFD86B;
+    border-radius: 28px;
+    transition: all 0.3s ease;
+}
+.top-links a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* ================= SHOP GRID WRAPPER ================= */
+.shop-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= SHOP GRID ================= */
+.shop-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* ================= SHOP CARD ================= */
+.shop-card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    transition: all 0.35s ease;
+    text-align: center;
+    animation: float 6s ease-in-out infinite;
+}
+.shop-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+}
+
+/* ================= SHOP IMAGE ================= */
+.shop-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 15px;
+}
+
+/* ================= SHOP NAME ================= */
+.shop-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #FFD86B;
+}
+
+/* ================= DETAILS BUTTON ================= */
+.shop-card a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 28px;
+    text-decoration: none;
+    background: #FFD86B;
+    color: #4A56E2;
+    font-weight: 600;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+}
+.shop-card a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* ================= STATUS ================= */
+.status-open {
+    margin-top: 12px;
+    color: #00ff7f;
+    font-weight: 700;
+}
+.status-closed {
+    margin-top: 12px;
+    color: #ff4d4d;
+    font-weight: 700;
+}
+
+/* ================= FLOAT ANIMATION ================= */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+    .shop-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .shop-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+ {% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+
+<h1>Customer Main</h1>
+
+<div class="top-links">
+    <a href="signout">Signout</a>
+    <a href="{% url 'Yourorders' %}">My Orders</a>
+</div>
+
+<div class="shop-wrapper">
+    <div class="shop-container">
+        {% if shop %}
+            {% for shop in shop %}
+            <div class="shop-card">
+                <img src="{{ shop.shopimage.url }}" alt="Shop Image">
+                <h2>{{ shop.shopname }}</h2>
+                <a href="{% url 'Shopproduct' shop.shop_id %}">Details</a>
+
+                {% if shop.is_open %}
+                    <p class="status-open">🟢 Shop is Open</p>
+                {% else %}
+                    <p class="status-closed">🔴 Shop is Closed</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

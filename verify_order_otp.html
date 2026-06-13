@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Verify Order OTP</title>
+
+<style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f2f6ff;
+        font-family: "Poppins", Arial, sans-serif;
+    }
+
+    .otp-container {
+        width: 90%;
+        max-width: 420px;
+        background: #fff;
+        padding: 30px 25px;
+        border-radius: 14px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+
+    .otp-container h2 {
+        color: #1e5eff;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .otp-input {
+        width: 100%;
+        padding: 14px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 6px;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .otp-input:focus {
+        border-color: #1e5eff;
+        box-shadow: 0 0 0 3px rgba(30, 94, 255, 0.2);
+    }
+
+    .confirm-btn {
+        margin-top: 25px;
+        width: 100%;
+        padding: 14px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        background: #28a745;
+        color: white;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .confirm-btn:hover {
+        background: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(40,167,69,0.4);
+    }
+
+    .confirm-btn:active {
+        transform: scale(0.97);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="otp-container">
+    <h2>Verify Order OTP</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input 
+            type="text" 
+            name="otp" 
+            maxlength="6" 
+            required 
+            class="otp-input"
+            placeholder="••••••"
+        >
+
+        <button type="submit" class="confirm-btn">
+            Confirm Order
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

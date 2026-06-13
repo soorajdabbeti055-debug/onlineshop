@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* background shapes */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+body::before { top: -200px; left: -200px; }
+body::after { bottom: -200px; right: -200px; }
+
+/* ================= CONTAINER ================= */
+.container {
+    background: rgba(255,255,255,0.06);
+    padding: 40px 30px;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ================= HEADING ================= */
+h1 {
+    color: #FFD86B;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+/* ================= INPUTS ================= */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 14px 12px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #FFD86B;
+    box-shadow: 0 0 0 2px rgba(255,216,107,0.3);
+}
+
+/* ================= SUBMIT BUTTON ================= */
+input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 999px;
+    background: #FFD86B;
+    color: #4A56E2;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+/* ================= FLOAT ANIMATION ================= */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 400px) {
+    .container {
+        padding: 30px 20px;
+    }
+    h1 { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<div class="container">
+    {% if messages %}
+    <script>
+        alert("{{ messages|escapejs }}");
+    </script>
+    {% endif %}
+    <h1>Sign In</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

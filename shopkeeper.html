@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopkeeper Registration</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        body::before {
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+            bottom: -200px;
+            right: -200px;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+            width: 92%;
+            max-width: 760px;
+            z-index: 2;
+            animation: fadeIn 0.8s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFD86B;
+            margin-bottom: 22px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        input {
+            padding: 12px 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,216,107,0.4);
+        }
+
+        .half { grid-column: span 1; }
+        .full { grid-column: span 2; }
+
+        p, label {
+            grid-column: span 2;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+        /* ===== BUTTON ROW ===== */
+        .button-row {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .btn-primary {
+            background: #FFD86B;
+            color: #4A56E2;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(255,216,107,0.45);
+        }
+
+        .btn-secondary {
+            text-decoration: none;
+            text-align: center;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 999px;
+            color: #FFD86B;
+            background: rgba(0,0,0,0.25);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #FFD86B;
+            color: #4A56E2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 650px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            .half, .full {
+                grid-column: span 1;
+            }
+
+            .button-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<div class="container">
+    <h1>Shopkeeper Registration</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="ownername" placeholder="Owner Name" class="half" required>
+        <input type="text" name="shopname" placeholder="Shop Name" class="half" required>
+
+        <input type="text" name="shoptype" placeholder="Shop Type" class="full" required>
+
+        <p>Owner Photo</p>
+        <input type="file" name="shopowner" class="full" required>
+
+        <p>Shop Image</p>
+        <input type="file" name="shopimage" class="full" required>
+
+        <label>Shop Location</label>
+        <input type="text" name="district" placeholder="District" class="half" required>
+        <input type="text" name="mandal" placeholder="Mandal" class="half" required>
+        <input type="text" name="village" placeholder="Village" class="half" required>
+        <input type="text" name="area" placeholder="Area" class="half" required>
+
+        <input type="number" name="number" placeholder="Mobile Number" class="half" required>
+        <input type="email" name="email" placeholder="Email Address" class="half" required>
+
+        <input type="password" name="password" placeholder="Password" class="full" required>
+
+        <!-- BUTTONS -->
+        <div class="button-row">
+            <button type="submit" class="btn-primary">Create Shop</button>
+            <a href="{% url 'reopenshop' %}" class="btn-secondary">Reopen Shop</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

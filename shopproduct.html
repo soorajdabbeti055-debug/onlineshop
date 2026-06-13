@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    color: #fff;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    animation: fadeIn 0.7s ease forwards;
+    text-align: center;
+}
+
+/* ===== HEADER ===== */
+h1 {
+    color: #FFD86B;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* ===== PRODUCT GRID ===== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+}
+
+/* ===== PRODUCT IMAGE ===== */
+.product-card img {
+    width: 50px;
+    max-height: 50%;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 15px;
+}
+
+/* ===== PRODUCT NAME ===== */
+.product-card h2 {
+    font-size: 1.3rem;
+    color: #FFD86B;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* ===== DETAILS BUTTON ===== */
+.details-button {
+    padding: 10px 25px;
+    background: #FFD86B;
+    color: #4A56E2;
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.details-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+</style>
+</head>
+<body>
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<div class="container">
+    <h1>Products</h1>
+
+    {% if shopproduct %}
+<div class="product-grid">
+    {% for shopproduct in shopproduct %}
+        {% if shopproduct.is_avaiable %}
+        <div class="product-card">
+            <img src="{{ shopproduct.productimageone.url }}" alt="Product Image">
+            <h2>{{ shopproduct.productname }}</h2>
+            <a href="{% url 'Shopproductdetails' shopproduct.product_id %}" class="details-button">
+                Details
+            </a>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+    <p>No products available.</p>
+{% endif %}
+</div>
+
+</body>
+</html>

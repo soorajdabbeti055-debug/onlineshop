@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+
+<style>
+* { box-sizing: border-box; font-family: 'Poppins', Arial, sans-serif; }
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #e6f0ff, #f4f4f4);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+/* ===== MAIN CARD ===== */
+.container {
+    background: linear-gradient(145deg, #ffffff, #dbe9ff);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.7s ease forwards;
+}
+
+/* ===== HEADER ===== */
+h1 {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* ===== IMAGE ROW ===== */
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.image-row img {
+    width: 35%;
+    max-width: 200px;
+    max-height: 100%;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-row img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,123,255,0.35);
+}
+
+/* ===== PRODUCT INFO ===== */
+.product-info {
+    margin-top: 20px;
+    text-align: left;
+    background: linear-gradient(135deg, #f0f8ff, #e6f0ff);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.product-info h2 {
+    color: #222;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    font-size: 1rem;
+    color: #444;
+    margin: 5px 0;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* ===== BUY BUTTON ===== */
+.buy-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.buy-button:hover {
+    background: linear-gradient(135deg, #1e7e34, #145214);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(40,167,69,0.4);
+}
+
+.buy-button:active {
+    transform: scale(0.95);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .image-row img { width: 45%; max-width: 150px; }
+    .product-info { text-align: center; }
+    h1 { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<div class="container">
+    <h1>Product Details</h1>
+
+    {% if pro %}
+    {% csrf_token %}
+
+    <div class="image-row">
+        <img src="{{ pro.productimageone.url }}" alt="Product Image">
+        <img src="{{ pro.productimagetwo.url }}" alt="Product Image">
+    </div>
+
+    <div class="product-info">
+        <h2>{{ pro.productname }}</h2>
+        <p class="price">₹ {{ pro.productprice }}</p>
+        <p>{{ pro.productinfo }}</p>
+    </div>
+
+    <a href="{% url 'Buy' pro.product_id %}" class="buy-button">
+        Buy Now
+    </a>
+
+    {% endif %}
+</div>
+
+</body>
+</html>

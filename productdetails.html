@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* background circles */
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+body::before {
+    top: -200px;
+    left: -200px;
+}
+
+body::after {
+    bottom: -200px;
+    right: -200px;
+}
+
+/* ================= HEADING ================= */
+h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #FFD86B;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ================= PRODUCT CONTAINER ================= */
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* ================= PRODUCT CARD ================= */
+.product-card {
+    background: rgba(255,255,255,0.06);
+    padding: 40px 25px;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+    text-align: center;
+    width: 100%;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ================= PRODUCT IMAGES ================= */
+.product-images {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.product-images img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease;
+}
+
+.product-images img:hover {
+    transform: translateY(-5px);
+}
+
+/* ================= PRODUCT DETAILS ================= */
+.product-card h2 {
+    margin: 15px 0 10px;
+    font-size: 1.8rem;
+    color: #FFD86B;
+}
+
+.product-card p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFD86B;
+}
+
+/* ================= FLOAT ANIMATION ================= */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 500px) {
+    .product-images {
+        flex-direction: column;
+    }
+
+    .product-images img {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-card {
+        padding: 30px 20px;
+    }
+}
+</style>
+</head>
+<body>
+
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<h1>Product Details</h1>
+
+<div class="product-container">
+    {% if pro %}
+    <div class="product-card">
+
+        <div class="product-images">
+            <img src="{{ pro.productimageone.url }}" alt="Product Image">
+            <img src="{{ pro.productimagetwo.url }}" alt="Product Image">
+        </div>
+
+        <h2>{{ pro.productname }}</h2>
+        <p class="price">Price: ₹{{ pro.productprice }}</p>
+        <p>{{ pro.productinfo }}</p>
+
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
