@@ -1,0 +1,13 @@
+{
+    "builds":[{
+        "src":"onlineshop/wsgi.py",
+        "use":"@vercel/python",
+        "config":{"maxLambdaSize":"15mb","rutime":"python3.11.3"}
+    }],
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"onlineshop/wsgi.py"
+        }
+    ]
+}
