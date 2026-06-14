@@ -1,0 +1,117 @@
+""" def Buy(request, id):
+    if 'user_email' not in request.session:
+        messages.error(request, "You must be logged in to buy a product.")
+        return redirect('Signin')
+
+    product = get_object_or_404(addproduct, product_id=id)
+    user = get_object_or_404(signup, email=request.session['user_email'])
+
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        number = request.POST.get('number')
+
+        # SAVE ORDER TEMPORARILY
+        order = buy.objects.create(
+            product=product,
+            product_image=product.productimageone,
+            user=user,
+            quantity=quantity,
+            number=number,
+        )
+
+        return redirect('verify_order_otp')
+
+    return render(request, 'buy.html', {'product': product})
+
+ """
+
+from datetime import timedelta
+from django.utils import timezone
+
+def VerifyOrderOTP(request):
+    order_id = request.session.get('order_id')
+
+    if not order_id:
+        messages.error(request, "Session expired. Please order again.")
+        return redirect('Customermain')
+
+    order = get_object_or_404(buy, id=order_id)
+
+    # OTP expiry check
+    if timezone.now() > order.otp_created_at + timedelta(minutes=5):
+        messages.error(request, "OTP expired.")
+        order.delete()
+        del request.session['order_id']
+        return redirect('Customermain')
+
+    if request.method == 'POST':
+        entered_otp = request.POST.get('otp')
+
+        if order.otp_attempts >= 3:
+            messages.error(request, "Too many wrong attempts.")
+            order.delete()
+            del request.session['order_id']
+            return redirect('Customermain')
+
+        if entered_otp == order.otp:
+            order.is_verified = True
+            order.otp = None
+            order.save()
+            del request.session['order_id']
+            messages.success(request, "Order confirmed!")
+            return redirect('Customermain')
+        else:
+            order.otp_attempts += 1
+            order.save()
+            messages.error(request, "Invalid OTP")
+
+    return render(request, 'verify_order_otp.html')
+
+""" 
+def Buy(request, id):
+    if 'user_email' not in request.session:
+        messages.error(request, "You must be logged in to buy a product.")
+        return redirect('Signin')
+
+    product = get_object_or_404(addproduct, product_id=id)
+    user = get_object_or_404(signup, email=request.session['user_email'])
+
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        number = request.POST.get('number')
+
+        if quantity <= 0:
+            messages.error(request, "Invalid quantity.")
+            return redirect('Shopproductdetails', id=id)
+
+        otp = random.randint(100000, 999999)
+
+        # SAVE ORDER TEMPORARILY
+        order = buy.objects.create(
+            product=product,
+            product_image=product.productimageone,
+            user=user,
+            quantity=quantity,
+            number=number,
+            otp=otp,
+            is_verified=False
+        )
+
+        # 📲 SEND OTP (Fast2SMS example)
+        url = "https://www.fast2sms.com/dev/bulkV2"
+        payload = {
+            "route": "otp",
+            "variables_values": otp,
+            "numbers": number,
+        }
+        headers = {
+            "authorization": "YOUR_FAST2SMS_API_KEY",
+            "Content-Type": "application/json"
+        }
+        requests.post(url, json=payload, headers=headers)
+
+        request.session['order_id'] = order.id
+        messages.success(request, "OTP sent to your mobile number.")
+        return redirect('VerifyOrderOTP')
+
+    return render(request, 'buy.html', {'product': product}) """

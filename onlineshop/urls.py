@@ -24,7 +24,19 @@ urlpatterns = [
     path('shopproductdetails/<int:id>/',views.Shopproductdetails, name='Shopproductdetails'),
     path('shopproductdetails/<int:id>/buy/',views.Buy,name='Buy'),
     path('ordersarrived/',views.Ordersarrived,name='Ordersarrived'),
+    path('yourorders/',views.Yourorders,name='Yourorders'),
+    path('toggle-shop/', views.ToggleShopStatus, name='ToggleShopStatus'),
+    path('ToggleProductStatus/',views.Toggleproductavailable,name='ToggleProductStatus'),
+    path('signup/signin/', views.Signin, name='signin'),
+    path('yourorders/', views.Yourorders, name='Yourorders'),
+    path('cancel-order-shop/<int:id>/', views.CancelOrderShop, name='CancelOrderShop'),
+    path('order-arrived/<int:id>/', views.OrderArrived, name='OrderArrived'),
+    path('verify-order-otp/', views.VerifyOrderOTP, name='VerifyOrderOTP'),
+    path('confirm-order/<int:id>/', views.ConfirmOrder, name='ConfirmOrder'),
+
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#path('verify-order-otp/', views.VerifyOrderOTP, name='VerifyOrderOTP'),

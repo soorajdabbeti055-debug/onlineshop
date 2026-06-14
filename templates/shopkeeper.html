@@ -5,94 +5,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopkeeper Registration</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4A56E2, #5F6FFF);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            background-color: #f4f4f4;
+            color: #fff;
+            overflow: hidden;
         }
+
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        body::before {
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+            bottom: -200px;
+            right: -200px;
+        }
+
         .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
-            max-width: 700px;
-            width: 90%;
+            background: rgba(255,255,255,0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+            width: 92%;
+            max-width: 760px;
+            z-index: 2;
+            animation: fadeIn 0.8s ease;
         }
+
         h1 {
-            color: #333;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            text-align: center;
+            color: #FFD86B;
+            margin-bottom: 22px;
+            font-size: 2rem;
+            font-weight: 700;
         }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
         input {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
         }
-        input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,216,107,0.4);
         }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+
+        .half { grid-column: span 1; }
+        .full { grid-column: span 2; }
+
+        p, label {
+            grid-column: span 2;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 8px;
         }
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+        /* ===== BUTTON ROW ===== */
+        .button-row {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .btn-primary {
+            background: #FFD86B;
+            color: #4A56E2;
+            border: none;
+            padding: 14px;
             font-size: 1rem;
-            color: #007bff;
-            transition: 0.3s;
+            font-weight: 700;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        a:hover {
-            color: #0056b3;
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(255,216,107,0.45);
         }
+
+        .btn-secondary {
+            text-decoration: none;
+            text-align: center;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 999px;
+            color: #FFD86B;
+            background: rgba(0,0,0,0.25);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #FFD86B;
+            color: #4A56E2;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 650px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            .half, .full {
+                grid-column: span 1;
+            }
+
+            .button-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body>
-    {% if messages %}
-        <script>
-            alert("{{ messages|escapejs }}");
-        </script>
-    {% endif %}
 
-    <div class="container">
-        <h1>Shopkeeper Registration</h1>
-        <form action="" enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            <input type="text" placeholder="Owner name" name="ownername" required><br>
-            <input type="text" placeholder="Shop name" name="shopname" required><br>
-            <input type="text" placeholder="Shop type" name="shoptype" required><br>
-            <input type="file" name="shopowner" required><br>
-            <input type="file" name="shopimage" required><br>
-            <label>Shop Location:</label><br>
-            <input type="text" placeholder="District" name="district" required><br>
-            <input type="text" placeholder="Mandal" name="mandal" required><br>
-            <input type="text" placeholder="Village" name="village" required><br>
-            <input type="text" placeholder="Area" name="area" required><br>
-            <input type="number" placeholder="Mobile" name="number" required><br>
-            <input type="email" placeholder="Email" name="email" required><br>
-            <input type="password" placeholder="Password" name="password" required><br>
-            <input type="submit" value="Submit"><br>
-            <a href="{% url 'reopenshop' %}">Reopen shop</a>
-        </form>
-    </div>
+<body>
+{% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
+<div class="container">
+    <h1>Shopkeeper Registration</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="ownername" placeholder="Owner Name" class="half" required>
+        <input type="text" name="shopname" placeholder="Shop Name" class="half" required>
+
+        <input type="text" name="shoptype" placeholder="Shop Type" class="full" required>
+
+        <p>Owner Photo</p>
+        <input type="file" name="shopowner" class="full" required>
+
+        <p>Shop Image</p>
+        <input type="file" name="shopimage" class="full" required>
+
+        <label>Shop Location</label>
+        <input type="text" name="district" placeholder="District" class="half" required>
+        <input type="text" name="mandal" placeholder="Mandal" class="half" required>
+        <input type="text" name="village" placeholder="Village" class="half" required>
+        <input type="text" name="area" placeholder="Area" class="half" required>
+
+        <input type="number" name="number" placeholder="Mobile Number" class="half" required>
+        <input type="email" name="email" placeholder="Email Address" class="half" required>
+
+        <input type="password" name="password" placeholder="Password" class="full" required>
+
+        <!-- BUTTONS -->
+        <div class="button-row">
+            <button type="submit" class="btn-primary">Create Shop</button>
+            <a href="{% url 'reopenshop' %}" class="btn-secondary">Reopen Shop</a>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>

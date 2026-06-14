@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+ {% for message in messages %}
+<script>
+  alert("{{ message|escapejs }}");
+</script>
+{% endfor %}
     <h1>Customer</h1>
 </body>
 </html>
