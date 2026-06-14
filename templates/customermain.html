@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customermain</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        select {
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .shop-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .shop-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        .shop-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .shop-card h2 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customermain</h1>
+    <a href="signout">Signout</a>
+    <br><br>
+    <div> 
+        <select name="" id="">
+            <option value="Nizamabad">Nizamabad</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Warangal">Warangal</option>
+        </select>
+    </div>
+    <div class="shop-container">
+        {% if shop %}
+        {% for shop in shop %}
+        <div class="shop-card">
+            <img src="{{ shop.shopimage.url }}" alt="Shop Image">
+            <h2>{{ shop.shopname }}</h2>
+            <a href="{% url 'Shopproduct' shop.shop_id %}">Details</a><br><br>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

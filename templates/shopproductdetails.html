@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            height: 100vh;
+            width: 100vw;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1, h2, p {
+            color: #333;
+        }
+        img {
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .product-info {
+            margin-top: 20px;
+        }
+        .buy-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-size: 18px;
+        }
+        .buy-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Details</h1>
+        {% if pro %}
+         {% csrf_token %}
+        <div>
+            <img src="{{ pro.productimageone.url }}" alt="Product Image" width="250px" height="350px">
+            <img src="{{ pro.productimagetwo.url }}" alt="Product Image" width="250px" height="250px">
+            <div class="product-info">
+                <h2>{{ pro.productname }}</h2>
+                <p><strong>Price:</strong> ${{ pro.productprice }}</p>
+                <p>{{ pro.productinfo }}</p>
+            </div>
+            <div>
+                <a href="{% url 'Buy' pro.product_id %}" class="buy-button">Buy</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

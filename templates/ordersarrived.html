@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Arrived</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .order-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .order-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        .order-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .order-card h2, .order-card h3, .order-card p {
+            margin: 10px 0;
+        }
+        .no-orders {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Arrived</h1>
+    <div class="order-container">
+        {% if orders %}
+        {% for orders in orders %}
+        <div class="order-card">
+            <h2>Shop Name: {{ orders.product.shop_id.shopname }}</h2>
+            <img src="{{ orders.product_image.url }}" alt="Product Image">
+            <h2>{{ orders.product.productname }}</h2>
+            <h3>Ordered By: {{ orders.user }}</h3>
+            <p>Quantity: {{ orders.quantity }}</p>
+            <p>Price: {{ orders.total_price }}</p>
+            <p>Contact: {{ orders.number }}</p>
+            <p>Address:{{ orders.user.district }},{{ orders.user.area}}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-orders">No orders found yet</p>
+        {% endif %}
+    </div>
+</body>
+</html>

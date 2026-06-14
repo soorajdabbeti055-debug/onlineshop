@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .product-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .product-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+        }
+        .product-images {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .product-images img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+        }
+        .product-card h2, .product-card p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <div class="product-container">
+        {% if pro %}
+         {% csrf_token %}
+        <div class="product-card">
+            <div class="product-images">
+                <img src="{{ pro.productimageone.url }}" alt="Product Image">
+                <img src="{{ pro.productimagetwo.url }}" alt="Product Image">
+            </div>
+            <div>
+                <h2>{{ pro.productname }}</h2>
+                <p>Price: {{ pro.productprice }}</p>
+                <p>{{ pro.productinfo }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
