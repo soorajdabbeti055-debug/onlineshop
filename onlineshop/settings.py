@@ -13,19 +13,40 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os 
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+""" DATABASES={
+    'default':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}  """
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
+""" BASE_DIR = {
+    "default":dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
+} """
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(-#a7&p1c2$ql-g7$bg2^m09+4m#e!54!xdf44x@y(k^-$q0tx'
 
+GOOGLE_API_KEY = "AIzaSyCUBGN8ah0C6bAqcaN9BbdTCUuytvY8o8c"
+#AIzaSyCUBGN8ah0C6bAqcaN9BbdTCUuytvY8o8c(google api key)
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,19 +108,19 @@ WSGI_APPLICATION = 'onlineshop.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 #https://console.neon.tech/app/org-restless-lab-78572863/projects
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'neondb',
         'USER': 'neondb_owner',
-        'PASSWORD': 'npg_oZ8vMbxL5qBe',
+        'PASSWORD':'postgresql://neondb_owner:npg_yB9hRvlCNka4@ep-twilight-dew-ayohtx0p-pooler.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
         'HOST': 'ep-icy-cell-atkqzp3c-pooler.c-9.us-east-1.aws.neon.tech',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
         },
     }
-}
+} """
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

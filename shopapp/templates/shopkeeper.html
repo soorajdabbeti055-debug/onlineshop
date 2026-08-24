@@ -25,6 +25,17 @@
             color: #fff;
             overflow: hidden;
         }
+      body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 30px 0;
+}
 
         body::before,
         body::after {
@@ -160,6 +171,14 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        #map {
+    grid-column: span 2;
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
     </style>
 </head>
 
@@ -194,6 +213,27 @@
 
         <input type="number" name="number" placeholder="Mobile Number" class="half" required>
         <input type="email" name="email" placeholder="Email Address" class="half" required>
+        <label>Shop Location</label>
+
+<input
+    type="text"
+    id="shop_search"
+    placeholder="Search your shop location"
+    class="full"
+>
+
+<div id="map"></div>
+
+<input type="hidden" name="latitude" id="latitude">
+<input type="hidden" name="longitude" id="longitude">
+
+<button type="button" id="currentLocation">
+    📍 Use My Current Location
+</button>
+
+<button id="scrollDownBtn" onclick="scrollDown()">
+    ↓
+</button>
 
         <input type="password" name="password" placeholder="Password" class="full" required>
 
@@ -204,6 +244,92 @@
         </div>
     </form>
 </div>
+
+
+<script>
+let map;
+let marker;
+
+function initMap() {
+
+    const defaultLocation = {
+        lat: 17.3850,
+        lng: 78.4867
+    };
+
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: defaultLocation,
+        zoom: 14
+    });
+
+    marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        draggable: true
+    });
+
+    updateLocation(defaultLocation);
+
+    marker.addListener("dragend", function () {
+        const position = marker.getPosition();
+
+        updateLocation({
+            lat: position.lat(),
+            lng: position.lng()
+        });
+    });
+}
+
+function updateLocation(location) {
+
+    document.getElementById("latitude").value = location.lat;
+    document.getElementById("longitude").value = location.lng;
+}
+
+function getCurrentLocation() {
+
+    if (!navigator.geolocation) {
+        alert("Location is not supported by your browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+
+            const location = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            map.setCenter(location);
+            map.setZoom(17);
+
+            marker.setPosition(location);
+
+            updateLocation(location);
+        },
+        function() {
+            alert("Unable to get your location.");
+        }
+    );
+}
+
+document.getElementById("currentLocation")
+    .addEventListener("click", getCurrentLocation);
+</script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcrAGSdXCf4rQPiySLL7bT4RVcGP84XsU&libraries=places&callback=initMap"
+    async
+    defer>
+</script>
+<script>
+function scrollDown() {
+    window.scrollBy({
+        top: 500,
+        behavior: "smooth"
+    });
+}
+</script>
 
 </body>
 </html>

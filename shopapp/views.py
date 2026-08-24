@@ -44,6 +44,8 @@ def Shopkeeper(request):
         number = request.POST.get('number')  # Ensure consistency with models.py
         email = request.POST['email']
         password = request.POST['password']
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
 
         # Check if shop already exists
         if shopkeeper.objects.filter(email=email).exists():
@@ -62,6 +64,8 @@ def Shopkeeper(request):
             area=area, 
             number=number, 
             email=email, 
+            latitude=latitude, 
+            longitude=longitude,
             password=password, # Will be hashed in `save()`
             is_open=True
         )

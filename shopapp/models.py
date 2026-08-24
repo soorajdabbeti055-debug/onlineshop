@@ -18,6 +18,8 @@ class shopkeeper(models.Model):
     email = models.EmailField(unique=True)  # Ensured email is unique
     password = models.CharField(max_length=255)  # Increased size for hashed passwords
     is_open = models.BooleanField(default=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     
     """ def save(self, *args, **kwargs):
         self.password = make_password(self.password)  # Hash password before saving
