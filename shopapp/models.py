@@ -51,6 +51,8 @@ class signup(models.Model):
     area= models.CharField(max_length=50,default="Unknown")
     near_by=models.TextField(max_length=50,default="Unknown")
     h_no=models.TextField(max_length=50,default="Unknown")
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     
 
     def __str__(self):

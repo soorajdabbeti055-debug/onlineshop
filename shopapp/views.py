@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+from math import radians,sin,cos,sqrt,atan2
 
 
 def Allhome(request):
@@ -147,12 +148,14 @@ def Signup(request):
         area=request.POST['area']
         near_by=request.POST['near_by']
         h_no=request.POST['h_no']
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
         exists_user=signup.objects.filter(email=email).exists()
         if exists_user:
             messages.error(request, 'User already exists!')
             return redirect('Signup')
         else:
-            user=signup(username=username,email=email,password=password,district=district,mandal=mandal,village=village,area=area,near_by=near_by,h_no=h_no)
+            user=signup(username=username,email=email,password=password,district=district,mandal=mandal,village=village,area=area,near_by=near_by,h_no=h_no, latitude=latitude,longitude=longitude)
             user.save()
             request.session['user_email'] = user.email
             messages.success(request, 'User added successfully!')
@@ -184,13 +187,99 @@ def Signout(request):
     return redirect('Allhome')
 
 def Customermain(request):
-    user=signup.objects.filter(email=request.session['user_email']).first()
-    if user:
-        shop = shopkeeper.objects.filter(district=user.district,mandal=user.mandal,area=user.area)
-        return render(request, 'customermain.html',{'shop':shop})
-    else:
+    if 'user_email' not in request.session:
+        messages.error(request, "Please login first.")
+        return redirect('Signin')
+    user = signup.objects.filter(
+        email=request.session['user_email']
+    ).first()
+
+    if not user:
         messages.error(request, "User not found.")
-        return render(request,'allhome.html')
+        return redirect('Allhome')
+    latitude = request.GET.get('latitude')
+    longitude = request.GET.get('longitude')
+    if latitude and longitude:
+
+        try:
+            latitude = float(latitude)
+            longitude = float(longitude)
+
+        except ValueError:
+
+            latitude = None
+            longitude = None
+    if latitude is None or longitude is None:
+
+        if user.latitude and user.longitude:
+
+            try:
+                latitude = float(user.latitude)
+                longitude = float(user.longitude)
+
+            except (ValueError, TypeError):
+
+                latitude = None
+                longitude = None
+
+    shops = shopkeeper.objects.all()
+
+    nearby_shops = []
+
+
+    if latitude is not None and longitude is not None:
+        EARTH_RADIUS = 6371
+        for shop in shops:
+            if not shop.latitude or not shop.longitude:
+                continue
+            try:
+                shop_lat = float(shop.latitude)
+                shop_lon = float(shop.longitude)
+            except (ValueError, TypeError):
+                continue
+            lat1 = radians(latitude)
+            lon1 = radians(longitude)
+
+            lat2 = radians(shop_lat)
+            lon2 = radians(shop_lon)
+            dlat = lat2 - lat1
+            dlon = lon2 - lon1
+            a = (
+                sin(dlat / 2) ** 2
+                +
+                cos(lat1)
+                * cos(lat2)
+                * sin(dlon / 2) ** 2
+            )
+
+            c = 2 * atan2(
+                sqrt(a),
+                sqrt(1 - a)
+            )
+            distance = EARTH_RADIUS * c
+            if distance <= 5:
+
+                shop.distance = round(distance, 2)
+
+                nearby_shops.append(shop)
+        nearby_shops.sort(
+            key=lambda shop: shop.distance
+        )
+    if latitude is not None and longitude is not None:
+
+        user.latitude = latitude
+        user.longitude = longitude
+        user.save(update_fields=['latitude', 'longitude'])
+    return render(
+        request,
+        'customermain.html',
+        {
+            'shop': nearby_shops,
+            'latitude': latitude,
+            'longitude': longitude,
+        }
+    )
+
 
 def Productdetails(request,id):
     pro=get_object_or_404(addproduct,product_id=id)

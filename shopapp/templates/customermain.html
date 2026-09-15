@@ -1,213 +1,996 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Main</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
 
-<style>
-/* ================= RESET ================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-/* ================= BODY ================= */
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #4A56E2, #5F6FFF);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    position: relative;
-    overflow-x: hidden;
-    color: #fff;
-}
+    <title>Customer Main</title>
 
-/* background circles */
-body::before,
-body::after {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 50%;
-    z-index: 0;
-}
-body::before { top: -200px; left: -200px; }
-body::after { bottom: -200px; right: -200px; }
 
-/* ================= HEADER ================= */
-h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #FFD86B;
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-}
+    <!-- Google Font -->
 
-/* ================= TOP BUTTONS ================= */
-.top-links {
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
-}
-.top-links a {
-    display: inline-block;
-    padding: 12px 28px;
-    margin: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    color: #4A56E2;
-    background: #FFD86B;
-    border-radius: 28px;
-    transition: all 0.3s ease;
-}
-.top-links a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-/* ================= SHOP GRID WRAPPER ================= */
-.shop-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
 
-/* ================= SHOP GRID ================= */
-.shop-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
+    <style>
 
-/* ================= SHOP CARD ================= */
-.shop-card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    transition: all 0.35s ease;
-    text-align: center;
-    animation: float 6s ease-in-out infinite;
-}
-.shop-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 28px 60px rgba(0,0,0,0.35);
-}
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-/* ================= SHOP IMAGE ================= */
-.shop-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 18px;
-    margin-bottom: 15px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* ================= SHOP NAME ================= */
-.shop-card h2 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #FFD86B;
-}
 
-/* ================= DETAILS BUTTON ================= */
-.shop-card a {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 8px 28px;
-    text-decoration: none;
-    background: #FFD86B;
-    color: #4A56E2;
-    font-weight: 600;
-    border-radius: 999px;
-    transition: all 0.3s ease;
-}
-.shop-card a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
+        /* =====================================================
+           BODY
+        ===================================================== */
 
-/* ================= STATUS ================= */
-.status-open {
-    margin-top: 12px;
-    color: #00ff7f;
-    font-weight: 700;
-}
-.status-closed {
-    margin-top: 12px;
-    color: #ff4d4d;
-    font-weight: 700;
-}
+        body {
 
-/* ================= FLOAT ANIMATION ================= */
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
-}
+            min-height: 100vh;
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 992px) {
-    .shop-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+            background:
+                linear-gradient(
+                    135deg,
+                    #4A56E2,
+                    #5F6FFF
+                );
 
-@media (max-width: 576px) {
-    .shop-container {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            padding: 20px;
+
+            position: relative;
+
+            overflow-x: hidden;
+
+            color: #fff;
+        }
+
+
+        /* =====================================================
+           BACKGROUND CIRCLES
+        ===================================================== */
+
+        body::before,
+        body::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border-radius: 50%;
+
+            z-index: 0;
+        }
+
+        body::before {
+
+            top: -200px;
+            left: -200px;
+        }
+
+        body::after {
+
+            bottom: -200px;
+            right: -200px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        h1 {
+
+            font-size: 2.2rem;
+
+            font-weight: 800;
+
+            color: #FFD86B;
+
+            margin-bottom: 20px;
+
+            position: relative;
+
+            z-index: 1;
+
+            text-shadow:
+                0 2px 6px rgba(0,0,0,0.4);
+        }
+
+
+        /* =====================================================
+           TOP LINKS
+        ===================================================== */
+
+        .top-links {
+
+            margin-bottom: 20px;
+
+            position: relative;
+
+            z-index: 1;
+
+            text-align: center;
+        }
+
+
+        .top-links a {
+
+            display: inline-block;
+
+            padding: 12px 28px;
+
+            margin: 6px;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            color: #4A56E2;
+
+            background: #FFD86B;
+
+            border-radius: 28px;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .top-links a:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 20px rgba(0,0,0,0.25);
+        }
+
+
+        /* =====================================================
+           LOCATION SECTION
+        ===================================================== */
+
+        .location-box {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            position: relative;
+
+            z-index: 1;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            padding: 20px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.20);
+
+            margin-bottom: 30px;
+        }
+
+
+        .location-title {
+
+            color: #FFD86B;
+
+            font-size: 1.2rem;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           MAP
+        ===================================================== */
+
+        #map {
+
+            width: 100%;
+
+            height: 300px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =====================================================
+           LOCATION BUTTON
+        ===================================================== */
+
+        #currentLocation {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 999px;
+
+            background: #FFD86B;
+
+            color: #4A56E2;
+
+            font-weight: 700;
+
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+
+        #currentLocation:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 20px rgba(0,0,0,0.25);
+        }
+
+
+        .location-info {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            font-size: 14px;
+
+            color: rgba(255,255,255,0.85);
+        }
+
+
+        /* =====================================================
+           SHOP WRAPPER
+        ===================================================== */
+
+        .shop-wrapper {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            position: relative;
+
+            z-index: 1;
+        }
+
+
+        /* =====================================================
+           SHOP HEADER
+        ===================================================== */
+
+        .shop-heading {
+
+            text-align: center;
+
+            color: #FFD86B;
+
+            font-size: 1.5rem;
+
+            margin-bottom: 20px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           SHOP GRID
+        ===================================================== */
+
+        .shop-container {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+        }
+
+
+        /* =====================================================
+           SHOP CARD
+        ===================================================== */
+
+        .shop-card {
+
+            background:
+                rgba(255,255,255,0.10);
+
+            padding: 20px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.25);
+
+            transition:
+                all 0.35s ease;
+
+            text-align: center;
+
+            animation:
+                float 6s ease-in-out infinite;
+        }
+
+
+        .shop-card:hover {
+
+            transform:
+                translateY(-8px);
+
+            box-shadow:
+                0 28px 60px rgba(0,0,0,0.35);
+        }
+
+
+        /* =====================================================
+           SHOP IMAGE
+        ===================================================== */
+
+        .shop-card img {
+
+            width: 100%;
+
+            height: 220px;
+
+            object-fit: cover;
+
+            border-radius: 18px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =====================================================
+           SHOP NAME
+        ===================================================== */
+
+        .shop-card h2 {
+
+            font-size: 1.4rem;
+
+            margin-bottom: 8px;
+
+            color: #FFD86B;
+        }
+
+
+        /* =====================================================
+           DISTANCE
+        ===================================================== */
+
+        .distance {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #fff;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =====================================================
+           DETAILS BUTTON
+        ===================================================== */
+
+        .shop-card a {
+
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 8px 28px;
+
+            text-decoration: none;
+
+            background: #FFD86B;
+
+            color: #4A56E2;
+
+            font-weight: 600;
+
+            border-radius: 999px;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .shop-card a:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 20px rgba(0,0,0,0.25);
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-open {
+
+            margin-top: 12px;
+
+            color: #00ff7f;
+
+            font-weight: 700;
+        }
+
+
+        .status-closed {
+
+            margin-top: 12px;
+
+            color: #ff4d4d;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           NO SHOPS
+        ===================================================== */
+
+        .no-shops {
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            border-radius: 20px;
+
+            font-size: 1rem;
+
+            color:
+                rgba(255,255,255,0.85);
+        }
+
+
+        /* =====================================================
+           FLOAT ANIMATION
+        ===================================================== */
+
+        @keyframes float {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 992px) {
+
+            .shop-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 576px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            h1 {
+
+                font-size: 1.8rem;
+            }
+
+
+            .shop-container {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            #map {
+
+                height: 250px;
+            }
+        }
+
+    </style>
+
 </head>
 
+
 <body>
- {% for message in messages %}
-<script>
-  alert("{{ message|escapejs }}");
-</script>
-{% endfor %}
+    {% for message in messages %}
 
-<h1>Customer Main</h1>
+        <script>
 
-<div class="top-links">
-    <a href="signout">Signout</a>
-    <a href="{% url 'Yourorders' %}">My Orders</a>
-</div>
+            alert("{{ message|escapejs }}");
 
-<div class="shop-wrapper">
-    <div class="shop-container">
-        {% if shop %}
-            {% for shop in shop %}
-            <div class="shop-card">
-                <img src="{{ shop.shopimage.url }}" alt="Shop Image">
-                <h2>{{ shop.shopname }}</h2>
-                <a href="{% url 'Shopproduct' shop.shop_id %}">Details</a>
+        </script>
 
-                {% if shop.is_open %}
-                    <p class="status-open">🟢 Shop is Open</p>
-                {% else %}
-                    <p class="status-closed">🔴 Shop is Closed</p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        {% endif %}
+    {% endfor %}
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <h1>
+        Customer Main
+    </h1>
+
+
+    <!-- =====================================================
+         TOP BUTTONS
+    ====================================================== -->
+
+    <div class="top-links">
+
+        <a href="{% url 'Signout' %}">
+            Signout
+        </a>
+
+
+        <a href="{% url 'Yourorders' %}">
+            My Orders
+        </a>
+
     </div>
-</div>
+    <div class="location-box">
+
+
+        <div class="location-title">
+
+            📍 Select Your Location
+
+        </div>
+
+
+        <!-- Google Map -->
+
+
+
+        <!-- Current Location -->
+
+        <button
+            type="button"
+            id="currentLocation"
+        >
+
+            📍 Use My Current Location
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         SHOP SECTION
+    ====================================================== -->
+
+    <div class="shop-wrapper">
+
+        <div class="shop-container">
+
+
+            {% if shop %}
+
+
+                {% for shop in shop %}
+
+                    <div class="shop-card">
+
+
+                        <!-- Shop Image -->
+
+                        {% if shop.shopimage %}
+
+                            <img
+                                src="{{ shop.shopimage.url }}"
+                                alt="{{ shop.shopname }}"
+                            >
+
+                        {% endif %}
+
+
+                        <!-- Shop Name -->
+
+                        <h2>
+                            {{ shop.shopname }}
+                        </h2>
+
+
+                        <!-- Distance -->
+
+                        <p class="distance">
+
+                            📍
+                            {{ shop.distance }} KM away
+
+                        </p>
+
+
+                        <!-- Details -->
+
+                        <a
+                            href="{% url 'Shopproduct' shop.shop_id %}"
+                        >
+
+                            Details
+
+                        </a>
+
+
+                        <!-- Shop Status -->
+
+                        {% if shop.is_open %}
+
+                            <p class="status-open">
+
+                                🟢 Shop is Open
+
+                            </p>
+
+                        {% else %}
+
+                            <p class="status-closed">
+
+                                🔴 Shop is Closed
+
+                            </p>
+
+                        {% endif %}
+
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="no-shops">
+
+                    <br><br>
+
+                    No shops found within 5 KM
+                    of your selected location.
+
+                    <br><br>
+
+                    Try changing your location.
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         GOOGLE MAP JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        let map;
+
+        let marker;
+
+
+        /* =====================================================
+           INITIALIZE MAP
+        ===================================================== */
+
+        function initMap() {
+
+            const defaultLatitude =
+                {% if latitude %}
+                    {{ latitude }}
+                {% else %}
+                    17.3850
+                {% endif %};
+
+
+            const defaultLongitude =
+                {% if longitude %}
+                    {{ longitude }}
+                {% else %}
+                    78.4867
+                {% endif %};
+
+
+            const defaultLocation = {
+
+                lat: Number(defaultLatitude),
+
+                lng: Number(defaultLongitude)
+
+            };
+
+
+            /* Create map */
+
+            map = new google.maps.Map(
+
+                document.getElementById("map"),
+
+                {
+
+                    center: defaultLocation,
+
+                    zoom: 14
+
+                }
+
+            );
+
+
+            /* Create draggable marker */
+
+            marker = new google.maps.Marker({
+
+                position: defaultLocation,
+
+                map: map,
+
+                draggable: true,
+
+                title: "Drag to change location"
+
+            });
+
+
+            /*
+             * When marker is dragged,
+             * send new location to Django.
+             */
+
+            marker.addListener(
+                "dragend",
+                function() {
+
+                    const position =
+                        marker.getPosition();
+
+
+                    updateCustomerLocation(
+
+                        position.lat(),
+
+                        position.lng()
+
+                    );
+
+                }
+            );
+
+        }
+
+        /* =====================================================
+           UPDATE CUSTOMER LOCATION
+        ====================================================== */
+
+        function updateCustomerLocation(
+            latitude,
+            longitude
+        ) {
+
+
+            /*
+             * Reload page with
+             * selected latitude and longitude.
+             *
+             * Django will calculate
+             * shops within 5 KM.
+             */
+
+            const url =
+                "{% url 'Customermain' %}"
+                +
+                "?latitude="
+                +
+                latitude
+                +
+                "&longitude="
+                +
+                longitude;
+
+
+            window.location.href = url;
+
+        }
+
+
+        /* =====================================================
+           GET CURRENT LOCATION
+        ====================================================== */
+
+        function getCurrentLocation() {
+
+
+            if (!navigator.geolocation) {
+
+                alert(
+                    "Location is not supported by your browser."
+                );
+
+                return;
+
+            }
+
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+
+                    const latitude =
+                        position.coords.latitude;
+
+
+                    const longitude =
+                        position.coords.longitude;
+
+
+                    /*
+                     * Move map
+                     */
+
+                    const location = {
+
+                        lat: latitude,
+
+                        lng: longitude
+
+                    };
+
+
+                    map.setCenter(location);
+
+                    map.setZoom(16);
+
+
+                    /*
+                     * Move marker
+                     */
+
+                    marker.setPosition(location);
+
+
+                    /*
+                     * Send location to Django
+                     */
+
+                    updateCustomerLocation(
+
+                        latitude,
+
+                        longitude
+
+                    );
+
+                },
+
+
+                function(error) {
+
+                    if (error.code === 1) {
+
+                        alert(
+                            "Please allow location permission."
+                        );
+
+                    }
+
+                    else {
+
+                        alert(
+                            "Unable to get your current location."
+                        );
+
+                    }
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           CURRENT LOCATION BUTTON
+        ====================================================== */
+
+        document
+            .getElementById("currentLocation")
+            .addEventListener(
+                "click",
+                getCurrentLocation
+            );
+
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcrAGSdXCf4rQPiySLL7bT4RVcGP84XsU&libraries=places&callback=initMap"
+        async
+        defer>
+    </script>
+
 
 </body>
+
 </html>
